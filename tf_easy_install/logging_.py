@@ -26,7 +26,7 @@ class Logger():
 
         # Log location
         username = os.getlogin()
-        logLocation = f"C:\\Users\\{username}\\AppData\\Local\\Temp"
+        logLocation = f"C:\\Users\\{username}\\AppData\\Local\\Temp\\tf-easy-install"
 
         timestamp = ""
         if create:
@@ -35,7 +35,7 @@ class Logger():
                 os.makedirs(logLocation, exist_ok=True)
             except PermissionError:
                 # Replace with UI error message
-                raise PermissionError("Oh no! Aire can't access it's own directories, please enable write permissions on the \"Aire\" folder!")
+                raise PermissionError(f"Unable to access log location: {logLocation}")
             timestamp = datetime.datetime.fromtimestamp(time.time()).strftime("%Y-%m-%d %H%M%S")
         else:
             logFiles = os.listdir(logLocation)

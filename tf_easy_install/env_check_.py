@@ -31,8 +31,8 @@ def check(args):
         logger.info("Successfully detected Anaconda")
 
         # Check to see if the requested conda env name is already in use
-        if not subprocess.run(f"conda activate {args.name}", shell=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL).returncode:
-            logger.error(f"The '{args.name}' Anaconda environment already exists, please choose a different name or run 'conda remove -y -n {args.name} --all'")
+        if not subprocess.run(f"conda activate {args.env_name}", shell=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL).returncode:
+            logger.error(f"The '{args.env_name}' Anaconda environment already exists, please choose a different name or run 'conda remove -y -n {args.env_name} --all'")
             return False
 
     if args.gpu:

@@ -13,8 +13,8 @@ def install(args):
     if env_check:
 
         # Create the environment
-        logger.debug(f"Installing Anaconda environment: {args.name}")
-        env_installed = not subprocess.run(f"conda create -n {args.name} -y python=3.7", shell=True).returncode
+        logger.debug(f"Installing Anaconda environment: {args.env_name}")
+        env_installed = not subprocess.run(f"conda create -n {args.env_name} -y python=3.7", shell=True).returncode
         if env_installed:
             logger.debug("Anaconda environment created, installing packages")
         else:
@@ -22,12 +22,12 @@ def install(args):
             return False
 
         # Install the Tensorflow packages and its dependencies
-        logger.debug("Installing Tensorflow{} {}".format("-GPU" if args.gpu else "", args.version))
+        logger.debug("Installing Tensorflow{} {}".format("-GPU" if args.gpu else "", args.tf_version))
         packages_installed = False
         if args.gpu:
-            packages_installed = not subprocess.run(f"conda activate {args.name} && conda install -y tensorflow-gpu=={args.version}", shell=True).returncode
+            packages_installed = not subprocess.run(f"conda activate {args.env_name} && conda install -y tensorflow-gpu=={args.tf_version}", shell=True).returncode
         else:
-            packages_installed = not subprocess.run(f"conda activate {args.name} && conda install -y tensorflow=={args.version}", shell=True).returncode
+            packages_installed = not subprocess.run(f"conda activate {args.env_name} && conda install -y tensorflow=={args.tf_version}", shell=True).returncode
         if packages_installed:
             logger.debug("Packages successfully installed")
         else:
@@ -36,7 +36,7 @@ def install(args):
 
         # Verify everything is successfully installed
         logger.debug("Running environment tests")
-        packages_checked = not subprocess.run(f"conda activate {args.name} && python -c \"import tensorflow as tf; print(tf.__version__)\"", shell=True).returncode
+        packages_checked = not subprocess.run(f"conda activate {args.env_name} && python -c \"import tensorflow as tf; print(tf.__version__)\"", shell=True).returncode
         if not packages_checked:
             logger.error("Environment test failed, see above for details")
             return False

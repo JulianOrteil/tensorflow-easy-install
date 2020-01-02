@@ -7,7 +7,7 @@ setuptools.setup(
     name="tensorflow-easy-install",
     version="0.0.1",
     author="Julian_Orteil",
-    description="A small command line package to install Tensorflow and its dependencies",
+    description="Python module for stupidly easy Tensorflow installation.",
     long_description=long_description,
     long_description_conent_type="text/markdown",
     url="https://github.com/Julian_Orteil/tensorflow-easy-install",
